@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "files": {
+    "index.html": {
+      "size": 10118,
+      "hash": "fa261840b8d5f411"
+    },
+    "style.css": {
+      "size": 10752,
+      "hash": "01485febedd7054b"
+    },
+    "game.js": {
+      "size": 15307,
+      "hash": "6969c4b77fc32e1e"
+    }
+  }
+}
