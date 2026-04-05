@@ -124,30 +124,19 @@ function startMode(mode) {
     }
 }
 
-// 朗讀詩句
+// 朗讀詩句 - 使用廣東話音頻
+let currentAudio = null;
+
 function speakLine(index) {
-    const text = poemLines[index];
-    
-    // 使用 Web Speech API
-    if ('speechSynthesis' in window) {
-        // 取消之前的語音
-        speechSynthesis.cancel();
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN';
-        utterance.rate = 0.8;
-        
-        // 嘗試找到中文語音
-        const voices = speechSynthesis.getVoices();
-        const zhVoice = voices.find(v => v.lang.includes('zh') && !v.lang.includes('HK') && !v.lang.includes('TW'));
-        if (zhVoice) {
-            utterance.voice = zhVoice;
-        }
-        
-        speechSynthesis.speak(utterance);
-    } else {
-        alert('您的瀏覽器不支援語音功能');
+    // 停止之前的音頻
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
     }
+    
+    // 播放廣東話完整朗讀
+    currentAudio = new Audio('https://shared-storage.hibye.day/aiken/yuanri_cantonese_20260405115543_023d.mp3');
+    currentAudio.play().catch(e => console.log('音頻播放失敗:', e));
 }
 
 // 顯示填充題

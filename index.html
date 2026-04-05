@@ -53,22 +53,24 @@
         <div id="read-mode" class="screen">
             <h2>📖 朗讀學習</h2>
             <div class="poem-display">
-                <div class="poem-line" data-line="0">
+                <div class="poem-line">
                     <span class="line-text">爆竹聲中一歲除</span>
-                    <button class="btn-speak" onclick="speakLine(0)">🔊</button>
                 </div>
-                <div class="poem-line" data-line="1">
+                <div class="poem-line">
                     <span class="line-text">春風送暖入屠蘇</span>
-                    <button class="btn-speak" onclick="speakLine(1)">🔊</button>
                 </div>
-                <div class="poem-line" data-line="2">
+                <div class="poem-line">
                     <span class="line-text">千門萬戶曈曈日</span>
-                    <button class="btn-speak" onclick="speakLine(2)">🔊</button>
                 </div>
-                <div class="poem-line" data-line="3">
+                <div class="poem-line">
                     <span class="line-text">總把新桃換舊符</span>
-                    <button class="btn-speak" onclick="speakLine(3)">🔊</button>
                 </div>
+            </div>
+            <div class="audio-controls">
+                <button class="btn-primary" onclick="speakLine(0)">
+                    🔊 播放廣東話朗讀
+                </button>
+                <p class="audio-note">點擊收聽完整古詩廣東話朗讀</p>
             </div>
             <div class="notes-section">
                 <h3>📝 詞語解釋</h3>
