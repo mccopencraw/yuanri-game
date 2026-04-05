@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《元日》古詩學習遊戲</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 首頁 -->
+        <div id="home-screen" class="screen active">
+            <div class="title-decoration">🏮</div>
+            <h1>《元日》古詩學習遊戲</h1>
+            <p class="subtitle">王安石 | 宋代</p>
+            <div class="poem-preview">
+                <p>爆竹聲中一歲除</p>
+                <p>春風送暖入屠蘇</p>
+            </div>
+            <button class="btn-primary" onclick="startGame()">開始學習 🎮</button>
+            <button class="btn-secondary" onclick="showPoem()">朗讀古詩 🔊</button>
+        </div>
+
+        <!-- 學習模式選擇 -->
+        <div id="mode-screen" class="screen">
+            <h2>選擇學習模式</h2>
+            <div class="mode-grid">
+                <div class="mode-card" onclick="startMode('read')">
+                    <div class="mode-icon">📖</div>
+                    <h3>朗讀學習</h3>
+                    <p>聽古詩朗讀，學習正確發音</p>
+                </div>
+                <div class="mode-card" onclick="startMode('fill')">
+                    <div class="mode-icon">✏️</div>
+                    <h3>填充練習</h3>
+                    <p>填寫詩句中的缺失字詞</p>
+                </div>
+                <div class="mode-card" onclick="startMode('quiz')">
+                    <div class="mode-icon">❓</div>
+                    <h3>理解測驗</h3>
+                    <p>回答關於詩歌的問題</p>
+                </div>
+                <div class="mode-card" onclick="startMode('match')">
+                    <div class="mode-icon">🎯</div>
+                    <h3>配對遊戲</h3>
+                    <p>配對詩句與解釋</p>
+                </div>
+            </div>
+            <button class="btn-back" onclick="showScreen('home-screen')">← 返回</button>
+        </div>
+
+        <!-- 朗讀學習模式 -->
+        <div id="read-mode" class="screen">
+            <h2>📖 朗讀學習</h2>
+            <div class="poem-display">
+                <div class="poem-line" data-line="0">
+                    <span class="line-text">爆竹聲中一歲除</span>
+                    <button class="btn-speak" onclick="speakLine(0)">🔊</button>
+                </div>
+                <div class="poem-line" data-line="1">
+                    <span class="line-text">春風送暖入屠蘇</span>
+                    <button class="btn-speak" onclick="speakLine(1)">🔊</button>
+                </div>
+                <div class="poem-line" data-line="2">
+                    <span class="line-text">千門萬戶曈曈日</span>
+                    <button class="btn-speak" onclick="speakLine(2)">🔊</button>
+                </div>
+                <div class="poem-line" data-line="3">
+                    <span class="line-text">總把新桃換舊符</span>
+                    <button class="btn-speak" onclick="speakLine(3)">🔊</button>
+                </div>
+            </div>
+            <div class="notes-section">
+                <h3>📝 詞語解釋</h3>
+                <div class="note-item">
+                    <span class="note-term">元日</span>
+                    <span class="note-meaning">一年的第一天（農曆正月初一）</span>
+                </div>
+                <div class="note-item">
+                    <span class="note-term">一歲除</span>
+                    <span class="note-meaning">一年過去了</span>
+                </div>
+                <div class="note-item">
+                    <span class="note-term">屠蘇</span>
+                    <span class="note-meaning">酒名，古代過年時喝的酒</span>
+                </div>
+                <div class="note-item">
+                    <span class="note-term">曈曈</span>
+                    <span class="note-meaning">形容太陽剛升起的樣子</span>
+                </div>
+                <div class="note-item">
+                    <span class="note-term">桃符</span>
+                    <span class="note-meaning">古代掛在門上消災避邪的木板，後來變成春聯</span>
+                </div>
+            </div>
+            <button class="btn-back" onclick="showScreen('mode-screen')">← 返回</button>
+        </div>
+
+        <!-- 填充練習模式 -->
+        <div id="fill-mode" class="screen">
+            <h2>✏️ 填充練習</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="fill-progress"></div>
+            </div>
+            <div class="question-counter">題目 <span id="fill-current">1</span> / <span id="fill-total">4</span></div>
+            
+            <div class="fill-question" id="fill-question">
+                <p class="question-text">請填寫詩句中的缺失字詞：</p>
+                <div class="poem-blank" id="poem-blank"></div>
+                <div class="options-grid" id="fill-options"></div>
+            </div>
+            
+            <div class="feedback" id="fill-feedback"></div>
+            <button class="btn-next" id="fill-next" onclick="nextFillQuestion()" style="display:none;">下一題 →</button>
+            <button class="btn-back" onclick="showScreen('mode-screen')">← 返回</button>
+        </div>
+
+        <!-- 理解測驗模式 -->
+        <div id="quiz-mode" class="screen">
+            <h2>❓ 理解測驗</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="quiz-progress"></div>
+            </div>
+            <div class="question-counter">題目 <span id="quiz-current">1</span> / <span id="quiz-total">4</span></div>
+            
+            <div class="quiz-question" id="quiz-question">
+                <p class="question-text" id="quiz-text"></p>
+                <div class="quiz-options" id="quiz-options"></div>
+            </div>
+            
+            <div class="feedback" id="quiz-feedback"></div>
+            <button class="btn-next" id="quiz-next" onclick="nextQuizQuestion()" style="display:none;">下一題 →</button>
+            <button class="btn-back" onclick="showScreen('mode-screen')">← 返回</button>
+        </div>
+
+        <!-- 配對遊戲模式 -->
+        <div id="match-mode" class="screen">
+            <h2>🎯 配對遊戲</h2>
+            <p class="match-instruction">點擊詩句，然後點擊對應的解釋</p>
+            <div class="match-score">得分: <span id="match-score">0</span> / 4</div>
+            
+            <div class="match-container">
+                <div class="match-column" id="match-lines">
+                    <h3>詩句</h3>
+                </div>
+                <div class="match-column" id="match-meanings">
+                    <h3>解釋</h3>
+                </div>
+            </div>
+            
+            <div class="feedback" id="match-feedback"></div>
+            <button class="btn-primary" id="match-restart" onclick="initMatchGame()" style="display:none;">再玩一次 🔄</button>
+            <button class="btn-back" onclick="showScreen('mode-screen')">← 返回</button>
+        </div>
+
+        <!-- 完成畫面 -->
+        <div id="complete-screen" class="screen">
+            <div class="celebration">🎉</div>
+            <h2>恭喜你完成學習！</h2>
+            <div class="score-display">
+                <p>你的得分</p>
+                <div class="score-number" id="final-score">0</div>
+                <p id="score-message"></p>
+            </div>
+            <div class="reward-section">
+                <p>🏆 獲得獎勵：</p>
+                <div class="reward-badge" id="reward-badge"></div>
+            </div>
+            <button class="btn-primary" onclick="showScreen('mode-screen')">再玩一次 🎮</button>
+            <button class="btn-secondary" onclick="showScreen('home-screen')">返回主頁 🏠</button>
+        </div>
+    </div>
+
+    <!-- 音效 -->
+    <audio id="sound-correct" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2teleR0NZKrk7rNsGgxJkNTsvXwkDk+L0O+0dSQPUIjN7LVyJQ1MiMzrsnMiDUyGzOuwdyQMTIfL6q12JgxLhsnprnUjDEuGyOerdiIMTIbH5Kl1IQxMhsbkpnIfDEuGxOSkciAMTIbE5KRxHgxLhsPkoG4dDEuGw+OgbBsMS4bC45psGQtLhsLimWgZC0uGwuKYZxkLS4bB4phmGQtLhsHimGUZC0uGv+KXZBkLS4a74pdjGQtLhrvilmMZC0uGuuKVYhkLS4a54pRhGQtLhrnilGAZC0uGt+KTYBkLS4a14pJfGQtLhrTikV4ZC0uGs+KQXhkLS4ax4o9dGQtLhq/ijlwZC0uGreeKXBkLS4at54hbGQtLhqvih1sZC0uGqOKEWhkLS4an4oNaGQtLhqXigFgZC0uGoeJ+WBkLS4af4n1XGQtLhp7ifFcZC0uGnOJ6VhkLS4ab4nhVGQtLhpnidlUZC0uGleJ0VBkLS4aT4nFTGQtLho/icFIZC0uGj+JuUhkLS4aL4mxRGQtLhofiaU8ZC0uGg+JmTxkLS4Z94mNPGQtLhnviYE4ZC0uGe+JeThkLS4Z34lpNGQtLhnXhWUwZC0uGc+FXSxkLS4Zv4VJKGQtLhm3hT0gZC0uGa+E+RxkLS4Zn4TpGGQtLhmPhN0UZC0uGX+E1RBkLS4Zd4TFCGQtLhlvBL0EZC0uGV+ErPhkLS4ZT4SY7GQtLhk/BJToZC0uGTcEhORkLS4ZJwR43GQtLhkPBHDUZC0uGPcEZNBkLS4Y7wRUzGQtLhjvBFDIYC0uGOcEPMRgLS4Y1wQ0wGAtLhjPBCy8XC0uGM8EJLhcLS4YtwP4tFwtLhiu//iwXC0uGKb/7KhcLS4Ynv/UpFwtLhiO/8ygXC0uGH7/vJxcLS4Ybv+wmFwtLhhe/6yMXC0uGEL/qIhcLS4YOv+YgFwtLhA6/4x8XC0uEDb/eHhcLS4QMv9oeFwtLhAy/1xwXC0uECr/VGhcLS4QIv1EYFwtLgwS/MRgXC0uCA7+9FxcLS4H6vrcXFwtLgfK+tBcXC0uB6r6rFxcLS4HWvqUXFwtLgdK+ohcXC0uBzr6cFxcLS4G6vpgXFwtLgbK+lhcXC0uBqr6SFxcLS4GavowXFwtLgZK+fhcXC0uBfL52FxcLS4F0vnIXFwtLgWy+bBcXC0uBXL5oFxcLS4FMvmAXFwtLgTi+WBcXC0uBLL5UFxcLS4EkvkwXFwtLgOC+RBcXC0uA2L4+FxcLS4DUvjoXFwtLgMy+MhcXC0uAvL4eFxcLS4C0vhYXFwtLgKS+ARcXC0t/pL36FhcLS3+UvPEWFwtLf3S86hcXC0t/dLziFhcLS39kvNsWFwtLf1S80hcXC0t/TLzCFhcLS3s8vL4WFwtLezy8uhcXC0t6PLy2FhcLS3k8vLIWFwtLeQS8rhcXC0t4PLymFhcLS3c8vJ4WFwtLdjS8mhcXC0t1MLySFhcLS3QwvI4WFwtLcyy8ihcXC0trLLyCFhcLS2ksvHwWFwtLaCi8eBcXC0tnILx0FxcLS2YgvHA==" type="audio/wav">
+    </audio>
+    <audio id="sound-wrong" preload="auto">
+        <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+    </audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
